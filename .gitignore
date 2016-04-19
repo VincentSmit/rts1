@@ -30,3 +30,8 @@
 
 # Debug files
 *.dSYM/
+
+# local shizzle
+lectures/
+rttools/
+*.bundle
