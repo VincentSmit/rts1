@@ -35,3 +35,12 @@
 lectures/
 rttools/
 *.bundle
+
+# latex shit
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.pdf
+*.synctex.gz
+*.toc
