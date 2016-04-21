@@ -23,6 +23,8 @@
 
 	Besides, complexity is often an important performance measure. This is not the case with these buffer implementations, though. There is always a direct indicator of where to read or write. This feature makes the complexity of $O(1)$.
 
+	Last, but maybe most important, it is important that the buffer implements all synchronization correctly. This is vital to prevent deadlocks, race conditions etcetera.
+	
 \subsubsection{Implementations}
 	The first alternative with two variables uses a pointer and a counter. The counter keeps track of the amount of tokens in the buffer, whereas the pointer represents for exmple the start index of the tokens. 
 	In this case the producer and consumer both need to update the counter. This requires an atomic increment and decrement operation. 
