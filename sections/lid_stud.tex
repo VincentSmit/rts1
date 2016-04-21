@@ -1,5 +1,36 @@
-\begin{homeworkProblem}[Literature study of buffers]
+\begin{homeworkProblem}[Literature study on buffers]
 \label{sec:lid_stud} 
-	
+
+\begin{homeworkSection}{FIFO buffers}
+	First-in-first-out (FIFO) is a simple concept where tasks are executed in order of their arrival. In other words, it is a queueing technique where the next executed task is the task that has been in the queue the longest. 
+	FIFO is also known as first-come-first-serve (FCFS).
+	In practice, these buffers are often implemented as circular buffer. 
+\end{homeworkSection}
+
+\begin{homeworkSection}{Circular buffers}
+	In a circular buffer, data is written into the buffer in a ring like structure. The buffer keeps track of where a data structure has been written last, but also from what location is read last. 
+	On the next read or write action, data is removed from or written to the specified location. 
+	When this action is complete, the last read or write indicator is updated. 
+	Once the end of the buffer has been reached, the indicator wraps around and starts again at beginning of the buffer. It thus overwrites the data previously stored there.
+
+	\todo{Evaluation criteria}
+
+	A method for comparing circular buffer implementations involves the required overhead. Implementations with both two and four variables for bookkeeping exist. \cite{buffers} 
+
+	The first alternative with two variables uses a pointer and a counter. The counter keeps track of the amount of tokens in the buffer, whereas the pointer represents for exmple the start index of the tokens. 
+	In this case the producer and consumer both need to update the counter. This requires an atomic increment and decrement operation, which is a small downside. 
+
+	The alternative with two variables utilizes two pointers, being a read pointer and a write pointer. 
+	The read pointer indicates the first full token whereas the write pointer indicates the first empty token. 
+	The producer updates write pointer and the consumer updates the read pointer. 
+	Because the producer and consumer do not share a pointer, the update operations need not be atomic. The downside of this implementation 
+	the case when the two pointers point to the same location. Without proper bookkeeping, it is unclear whether te buffer is empty or full when this event occurs. 
+	Wrap-around counters can fix this problem, but they require extra overhead. Another solution is to disallow the write pointer to catch up with the read pointer. 
+	This means that when the pointers are equal, the buffer is empty.
+
+	Besides the implementations discussed above, alternatives with four control variables exist. 
+	Besides the pointer, both the consumer and the producer keep track of the amount of tokens they processed. 
+	The difference between those numbers is equal to the amount of tokens in the channel.
+\end{homeworkSection}
 \end{homeworkProblem}
 

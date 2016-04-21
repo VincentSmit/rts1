@@ -2,7 +2,47 @@
 \label{sec:hapi}
 
 \begin{homeworkSection}{Exercise 1}
-	
+\begin{tabular}{l|l|l}
+	& $C_i$ & $T_i$ \\
+	\hline
+	$\tau_1$ & 2,5 & 5 \\
+	\hline
+	$\tau_2$ & 4 & 9 \\
+\end{tabular}
+
+For the LL-bound check, we need to know the least upperbound for this schedule. Since we have two tasks, equation \ref{eq:lub} has to be calculated for two tasks.
+
+\begin{equation} \label{eq:lub}
+\begin{split}
+U_{lub} &= 2*(2^{1/n}-1)\\
+		&= 0.828
+\end{split}
+\end{equation}
+
+Then, for the bound check we need the utilization factor. If this value is smaller than the $U_{lub}$, 
+
+\begin{equation} \label{eq:util}
+\begin{split}
+U 	& = \sum_{i=1}^2 \frac{C_i}{T_i} \\
+	& = \frac{2,5}{5} + \frac{4}{9}\\
+	& = \frac{17}{18}\\
+	& = 0.944....\\
+\end{split}
+\end{equation}
+
+This is clearly greater than 0.828, therefore the schedule is not feasible according to the LL bound.
+
+So then for the schedule to be feasible according to the HB bound, the result of equation \ref{eq:util_hb}.
+
+\begin{equation} \label{eq:util_hb}
+\begin{split}
+\prod_{i=1}^{2} (U_{i} + 1) & = 1\frac{1}{2} * 1\frac{4}{9} \\
+		& = \frac{13}{6}	
+\end{split} 	
+\end{equation} 
+
+This is larger than 2, therefore the schedule is not feasible according to the HB bound.
+
 \end{homeworkSection}
 
 \begin{homeworkSection}{Exercise 2}
