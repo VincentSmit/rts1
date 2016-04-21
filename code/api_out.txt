@@ -1,0 +1,20 @@
+IntCtrl: Got a FIQ 0
+task1 0 64
+task1 1 0
+task1 2 0
+task1 3 0
+task1 4 0
+task1 5 0
+task1 6 0
+task1 7 0
+task1 8 0
+task1 9 0
+task1 10 0
+task1 11 0
+task1 12 0
+main2 260000
+task1 13 0
+task 2 shmaddr 260000 data 0
+task2 0 64
+task1 14 0
+task2 1 0

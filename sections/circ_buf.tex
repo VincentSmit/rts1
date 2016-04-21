@@ -1,15 +1,28 @@
 \begin{homeworkProblem}[Circular buffer on dual-core ARM]
 \label{sec:circ_buf}
-The circular buffer is implemented with the bakery's algorithm. This algorithm is an analogy to people waiting to be served at the bakery. 
+The methods of api.c are implemented in such a way that the api offers the user access to a circular FIFO buffer. The api keeps a list of all the opened buffers and provides methods for reading and writing.
+
+Per buffer we keep track of the current write and read pointers and whether we have a full or empty buffer. This is necessary as it is unclear whether a buffer is full or empty when the write and read pointers are the same.
+
+The circular buffer resource access management is implemented with the bakery algorithm. This algorithm is an analogy to people waiting to be served at a bakery. We started with using regular spinlocks for access. This approach led to starvation of tasks. We noticed the hints in the commentary of api.c and decided that a more advanced approach was necessary. This led to our implementation of the bakery algorithm.
 
 When a new customer comes in, he draws a number.
 Then starts waiting for his turn. When the baker calls his number, the lowest in the line of waiting customers, he will be served. 
 When the customer is done with his business with the baker, the customer leaves, discards its number and the baker calls the now lowest number. 
 
 The algorithm works in the same manner. When a task requests a critical operation, it receives a number. This number 1 higher than the current highest number of all tasks waiting for that lock. 
-After receiving a number, the tasks waits untill its number is the lowest of all waiting tasks for taht lock. 
+After receiving a number, the tasks waits untill its number is the lowest of all waiting tasks for that lock. 
 When it finally holds the lowest number, the tasks executes its critical operation and leaves afterwards. When leaving, its number is \'discarded\' by a reset to 0. 
 This process repeats everytime a task tries to enter a critical section.
 
+In listing~\ref{api} is the implementation shown of the bakery algoritm and the full api. The file was mostly implemented as proof of concept and tested often. Possible improvements of the implementation are removal of magic numbers, better commentary and proper use of structs to manage data. The api should also offer some kind of error codes and standardized return values. However, these aren't used in the test1.c file and often we had to guess what the actual use of a method was. 
+
+Test of the implementation led to some difficulties. The first is the unblocking nature of printf. We often expected output that never came due to the high data output of the test. Our simple spin lock implementation worked properly and the buffers were protected from overflow. The bakery implementation unfortunately deadlocks after the first read from the buffer done by task 2, as can be seen in listing~\ref{api_out}. We have tried debugging the bakery algorithm but were unable to improve the performance.
+
+\Cscript{api}{Implementation of api.c}
+
+\newpage
+
+\TXTscript{api_out}{Output of the SWARM simulator.}
 
 \end{homeworkProblem}
