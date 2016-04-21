@@ -4,7 +4,7 @@
 \begin{homeworkSection}{FIFO buffers}
 	First-in-first-out (FIFO) is a simple concept where tasks are executed in order of their arrival. In other words, it is a queueing technique where the next executed task is the task that has been in the queue the longest. 
 	FIFO is also known as first-come-first-serve (FCFS).
-	In practice, these buffers are often implemented as circular buffer. 
+	In practice, these buffers are often implemented as circular buffer. Especially when the data is no longer relevant after it has been read.
 \end{homeworkSection}
 
 \begin{homeworkSection}{Circular buffers}
@@ -13,13 +13,21 @@
 	When this action is complete, the last read or write indicator is updated. 
 	Once the end of the buffer has been reached, the indicator wraps around and starts again at beginning of the buffer. It thus overwrites the data previously stored there.
 
-	\todo{Evaluation criteria}
-
+\subsubsection{Evaluation criteria}
+	In order to evaluate a buffer implementation certain criteria need to be specified. Multiple features of a buffer are suitable for evaluating an implementation.
+	
 	A method for comparing circular buffer implementations involves the required overhead. Implementations with both two and four variables for bookkeeping exist. \cite{buffers} 
+	Implementations with more variables have more control over the state of the system system. On the other hand, more control introduces more overhead. This might cost more time and is more errorprone.
 
+	Since both read and write operations will occur, the extend to which synchronization is required is a subject for evaluation. The need for atomic operations is obvious, but some implementations need more of them than others.
+
+	Besides, complexity is often an important performance measure. This is not the case with these buffer implementations, though. There is always a direct indicator of where to read or write. This feature makes the complexity of $O(1)$.
+
+\subsubsection{Implementations}
 	The first alternative with two variables uses a pointer and a counter. The counter keeps track of the amount of tokens in the buffer, whereas the pointer represents for exmple the start index of the tokens. 
-	In this case the producer and consumer both need to update the counter. This requires an atomic increment and decrement operation, which is a small downside. 
-
+	In this case the producer and consumer both need to update the counter. This requires an atomic increment and decrement operation. 
+	This is a slight disadvantage, since it might have a poor effect on the performance of the system.
+	
 	The alternative with two variables utilizes two pointers, being a read pointer and a write pointer. 
 	The read pointer indicates the first full token whereas the write pointer indicates the first empty token. 
 	The producer updates write pointer and the consumer updates the read pointer. 
