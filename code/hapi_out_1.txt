@@ -1,0 +1,14 @@
+
+             SystemC 2.3.0-ASI --- Oct 23 2015 11:48:41
+        Copyright (c) 1996-2012 by all Contributors,
+        ALL RIGHTS RESERVED
+
+Period 5 ns
+Period 9 ns
+Using a uniform_int_distribution random generator 
+            with seed 3451027897 and bounds [2.5..2.5]
+Using a uniform_int_distribution random generator 
+            with seed 457370848 and bounds [4..4]
+WARNING: Default time step is used for VCD tracing.
+New max response time for task0: 2 ns   at timestamp: 2 ns
+New max response time for task1: 8 ns   at timestamp: 8 ns
